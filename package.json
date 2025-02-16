@@ -1,0 +1,23 @@
+{
+  "name": "saweria-webhook",
+  "version": "1.0.0",
+  "description": "Webhook Saweria untuk WhatsApp Bot menggunakan Supabase & Vercel",
+  "main": "api/webhook.js",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "vercel": "^31.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["saweria", "webhook", "whatsapp-bot", "supabase", "vercel"],
+  "author": "RgBruhh",
+  "license": "MIT"
+}
