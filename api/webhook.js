@@ -14,18 +14,26 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log("Request body:", req.body); // Debugging
+
     const { name, amount, message } = req.body;
 
-    if (!name || !amount) {
-      return res.status(400).json({ error: "Name and amount are required" });
+    // Validasi input
+    if (!name || typeof name !== "string") {
+      return res.status(400).json({ error: "Invalid name" });
     }
-
+    if (!amount || isNaN(amount)) {
+      return res.status(400).json({ error: "Invalid amount" });
+    }
+    
     // Simpan data donasi ke Supabase
-    const { data, error } = await supabase.from("donations").insert([{ name, amount, message }]);
+    const { data, error } = await supabase
+      .from("donations")
+      .insert([{ name, amount: parseFloat(amount), message }]);
 
     if (error) {
       console.error("Supabase error:", error.message);
-      throw error;
+      return res.status(500).json({ error: "Database error", details: error.message });
     }
 
     res.status(200).json({ success: true, message: "Donation saved", data });
