@@ -1,6 +1,19 @@
 {
-  "functions": {
-    "api/webhook.js": { "runtime": "nodejs18.x" },
-    "api/donations.js": { "runtime": "nodejs18.x" }
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/webhook",
+      "dest": "/api/webhook.js"
+    },
+    {
+      "src": "/donations",
+      "dest": "/api/donations.js"
+    }
+  ]
 }
