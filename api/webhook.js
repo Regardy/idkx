@@ -16,20 +16,26 @@ export default async function handler(req, res) {
   try {
     console.log("Request body:", req.body); // Debugging
 
-    const { name, amount, message } = req.body;
+    // Ambil data dari request
+    const { donator_name, amount_raw, message } = req.body;
 
     // Validasi input
-    if (!name || typeof name !== "string") {
-      return res.status(400).json({ error: "Invalid name" });
+    if (!donator_name || typeof donator_name !== "string") {
+      return res.status(400).json({ error: "Invalid donator_name" });
     }
-    if (!amount || isNaN(amount)) {
-      return res.status(400).json({ error: "Invalid amount" });
+    if (!amount_raw || isNaN(amount_raw)) {
+      return res.status(400).json({ error: "Invalid amount_raw" });
     }
-    
+
+    // Ubah nama field agar sesuai dengan database Supabase
+    const name = donator_name;
+    const amount = parseFloat(amount_raw); // Sesuaikan jika perlu dibagi 100
+    const donation_message = message || "";
+
     // Simpan data donasi ke Supabase
     const { data, error } = await supabase
       .from("donations")
-      .insert([{ name, amount: parseFloat(amount), message }]);
+      .insert([{ name, amount, message: donation_message }]);
 
     if (error) {
       console.error("Supabase error:", error.message);
