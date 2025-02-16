@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Donasi Saweria</title>
+  <script>
+    async function fetchDonations() {
+      const response = await fetch("/api/donations?token=your_secret_token");
+      const donations = await response.json();
+      const list = document.getElementById("donation-list");
+      list.innerHTML = donations.map(d => `<li>${d.name} - Rp${d.amount}: ${d.message}</li>`).join("");
+    }
+    window.onload = fetchDonations;
+  </script>
+</head>
+<body>
+  <h1>Daftar Donasi</h1>
+  <ul id="donation-list"></ul>
+</body>
+</html>
