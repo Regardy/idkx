@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/webhook.js": { "runtime": "nodejs18.x" },
+    "api/donations.js": { "runtime": "nodejs18.x" }
+  }
+}
